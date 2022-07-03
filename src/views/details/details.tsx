@@ -1,4 +1,4 @@
-import { ListItem } from "@react-native-material/core";
+import { ListItem, Text } from "@react-native-material/core";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import { Indicadores } from "../../services/axios";
@@ -19,12 +19,12 @@ export const Details = ({ route: { params: { currency } } }: any) => {
             date.setDate(date.getDate() - 30);
             period = `posteriores/${date.getFullYear()}/${date.getUTCMonth() + 1}/dias/${date.getUTCDate()}`;
         } else {
-            period = `posteriores/${date.getFullYear()}`;
+            period = `${date.getFullYear()}`;
             console.log(period);
         }
         try {
             const resp = await Indicadores.getIndicador(currency, period);
-            setItems(Object.values(resp)[0].slice(-10));
+            setItems(Object.values(resp)[0]);
         } catch (error: any) {
             setLoading(false);
             setApiError(error.code)
